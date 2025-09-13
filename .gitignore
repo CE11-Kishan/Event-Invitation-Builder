@@ -1,0 +1,50 @@
+### Node / Monorepo General ###
+node_modules/
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+### Build Artifacts ###
+dist/
+dist-ssr/
+build/
+.cache/
+coverage/
+
+### Environment & Local Config ###
+.env
+.env.*.local
+*.local
+
+### OS / Editor ###
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+### Backups / Generated ###
+frontend_cra_backup/
+
+### GitHub / Meta (keep workflows if added later) ###
+.github/
+
+### Dependency Locks (optional central ignore if using per-package) ###
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+### Misc ###
+*.tgz
+*.pid
+*.pid.lock
+*.tsbuildinfo
