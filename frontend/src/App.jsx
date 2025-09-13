@@ -186,12 +186,12 @@ function App() {
                   location: base.location,
                   description: base.description,
                   eventType: base.event_type,
-                  backgroundImageUrl: base.background_image_url
+                  backgroundImageUrl: base.background_image
                 };
               })()}
               previewImg={(() => {
                 const base = selectedInvitation || null;
-                return base?.background_image_url || previewImg || defaultBgFor(form.eventType);
+                return base?.background_image || previewImg || defaultBgFor(form.eventType);
               })()}
             />
           </div>

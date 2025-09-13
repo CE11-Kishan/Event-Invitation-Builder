@@ -45,9 +45,9 @@ export const InvitationDetails = forwardRef(function InvitationDetails({
           <div
             className="relative rounded-md border border-dashed border-gray-300 p-4 bg-white overflow-hidden"
             style={{
-              backgroundImage: invitation.background_image_url?.startsWith('data:')
-                ? `url(${invitation.background_image_url})`
-                : invitation.background_image_url,
+              backgroundImage: invitation.background_image?.startsWith('data:')
+                ? `url(${invitation.background_image})`
+                : invitation.background_image,
               backgroundSize: 'cover',
               backgroundPosition: 'center'
             }}

@@ -3,7 +3,6 @@ import cors from 'cors';
 import Database from 'better-sqlite3';
 import { v4 as uuid } from 'uuid';
 import { validateInvitation, validateRSVP, EVENT_TYPES } from './utils/validation.js';
-import { defaultBackgroundFor } from './utils/backgrounds.js';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -32,13 +31,13 @@ if (invitationsExists && (hasStyleVariant || !hasCreatorEmail)) {
       location TEXT,
       start_datetime TEXT NOT NULL,
       event_type TEXT DEFAULT 'other',
-      background_image_url TEXT,
+      background_image TEXT,
       creator_email TEXT,
       created_at TEXT NOT NULL,
       updated_at TEXT NOT NULL
     );`);
-    db.exec(`INSERT INTO invitations (id,title,host,description,location,start_datetime,event_type,background_image_url,creator_email,created_at,updated_at)
-             SELECT id,title,host,description,location,start_datetime,event_type,background_image_url,NULL as creator_email,created_at,updated_at FROM invitations_old;`);
+    db.exec(`INSERT INTO invitations (id,title,host,description,location,start_datetime,event_type,background_image,creator_email,created_at,updated_at)
+             SELECT id,title,host,description,location,start_datetime,event_type,background_image,NULL as creator_email,created_at,updated_at FROM invitations_old;`);
     db.exec(`DROP TABLE invitations_old;`);
   })();
 }
@@ -52,7 +51,7 @@ CREATE TABLE IF NOT EXISTS invitations (
   location TEXT,
   start_datetime TEXT NOT NULL,
   event_type TEXT DEFAULT 'other',
-  background_image_url TEXT,
+  background_image TEXT,
   creator_email TEXT,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL
@@ -75,7 +74,7 @@ function nowISO() { return new Date().toISOString(); }
 
 
 // Statements
-const insertInvitationStmt = db.prepare(`INSERT INTO invitations (id,title,host,description,location,start_datetime,event_type,background_image_url,creator_email,created_at,updated_at) VALUES (@id,@title,@host,@description,@location,@start_datetime,@event_type,@background_image_url,@creator_email,@created_at,@updated_at)`);
+const insertInvitationStmt = db.prepare(`INSERT INTO invitations (id,title,host,description,location,start_datetime,event_type,background_image,creator_email,created_at,updated_at) VALUES (@id,@title,@host,@description,@location,@start_datetime,@event_type,@background_image,@creator_email,@created_at,@updated_at)`);
 const getInvitationStmt = db.prepare('SELECT * FROM invitations WHERE id = ?');
 const listInvitationsStmt = db.prepare('SELECT * FROM invitations ORDER BY created_at DESC LIMIT 50');
 const listInvitationsByCreatorStmt = db.prepare('SELECT * FROM invitations WHERE creator_email = ? ORDER BY created_at DESC LIMIT 50');
@@ -105,7 +104,7 @@ app.post('/api/invitations', (req, res, next) => {
       location: req.body.location?.trim() || null,
       start_datetime: req.body.startDateTime,
       event_type: req.body.eventType && EVENT_TYPES.includes(req.body.eventType) ? req.body.eventType : 'other',
-      background_image_url: req.body.backgroundImageUrl || defaultBackgroundFor(req.body.eventType),
+      background_image: req.body.backgroundImageUrl,
       creator_email: req.body.creatorEmail?.trim() || null,
       created_at: nowISO(),
       updated_at: nowISO()
