@@ -48,3 +48,6 @@ frontend_cra_backup/
 *.pid
 *.pid.lock
 *.tsbuildinfo
+data.db
+data.db-shm
+data.db-wal

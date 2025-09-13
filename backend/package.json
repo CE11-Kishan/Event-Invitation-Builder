@@ -1,8 +1,8 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "This is the Node.js (Express) backend for the Event Invitation Builder POC.",
-  "main": "index.js",
+  "description": "Node.js (Express) backend for the Event Invitation Builder POC.",
+  "type": "module",
   "scripts": {
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
@@ -12,8 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "better-sqlite3": "^11.5.0",
     "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "uuid": "^13.0.0"
+  "express": "^5.1.0",
+  "uuid": "^13.0.0"
   }
 }
